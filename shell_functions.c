@@ -41,8 +41,9 @@ void executeCommand(char *buffer, ssize_t n)
 		char *args[] = {buffer, NULL};
 
 
-		if (execvp(buffer, args) == -1)
+		if (execve(buffer, args, NULL) == -1)
 		{
+			perror("execve");
 			char error_message[] = "Command not found: ";
 
 			write(STDOUT_FILENO, error_message, my_strlen(error_message));
