@@ -1,6 +1,24 @@
 #include "shell.h"
 
 /**
+ * my_strlen - Custom implementation of strlen.
+ *
+ * @str: The string to calculate the length of.
+ *
+ * Return: The length of the string.
+ */
+
+size_t my_strlen(const char *str)
+{
+	size_t len = 0;
+	while (str[len] != '\0')
+	{
+		len++;
+	}
+	return len;
+}
+
+/**
  * executeCommand - Handle the command execution and display the exit status.
  *
  * @buffer: The input buffer containing the user's command.
@@ -27,7 +45,7 @@ void executeCommand(char *buffer, ssize_t n)
 		{
 			char error_message[] = "Command not found: ";
 
-			write(STDOUT_FILENO, error_message, strlen(error_message));
+			write(STDOUT_FILENO, error_message, my_strlen(error_message));
 			write(STDOUT_FILENO, buffer, n - 1);
 			write(STDOUT_FILENO, "\n", 1);
 			exit(EXIT_FAILURE);
@@ -58,6 +76,6 @@ void displayExitStatus(int status)
 	{
 		char error_message[] = "Command did not exit normally\n";
 
-		write(STDOUT_FILENO, error_message, strlen(error_message));
+		write(STDOUT_FILENO, error_message, my_strlen(error_message));
 	}
 }
